@@ -1,0 +1,1170 @@
+<!-- Content Wrapper. Contains page content -->
+<div >
+    <div class="curve">
+        <p></p>
+      </div>
+  <div class="row">
+    <div class="col-md-3">
+      <h3 class="heading"><strong>Projects</strong></h3>
+    </div>
+  
+    <div class="col-md-5">
+  
+    </div>
+  
+    <div class="col-md-4" style="text-align: right;">
+  
+      <!-- <div class="dropdown" style="display: inline-block;margin-left:10%;">
+        <button class="drpBtn">
+          <img style="height:30px;width:40px;margin-top:-20px" src="../../../../../assets/img/en.png">
+        </button>
+        <div class="dropdown-content">
+          <a (click)="changeLang('../../../../../assets/images/en.png','en')"><img style="height:30px;width:50px;"
+              src="../../../../../assets/img/en.png"></a>
+          <a (click)="changeLang('../../../../../assets/images/no.png','no')"><img style="height:30px;width:50px;"
+              src="../../../../../assets/img/en.png"></a>
+  
+        </div>
+      </div> -->
+  
+      <div class="dropdown" style="display: inline-block;">
+        <button class="drpbtn" style=" background-color: transparent!important">
+          <i class="fas fa-bell icon" style="color:black!important"></i>
+        </button>
+        <div class="dropdown-content2">
+  
+          <button class="button1"> No Today's Events</button>
+        </div>
+      </div>
+  
+      <div class="dropdown1" style="display: inline-block;">
+        <button class="drpbtn" style=" background-color: transparent!important">
+          <img src="{{shared.customerData.img}}" class="img-circle profile-pic" alt="User Image">
+        </button>
+        <div class="dropdown-content1">
+  
+          <button class="button1" (click)="logout()">Logout</button>
+        </div>
+      </div>
+  
+  
+  
+  
+      <h3 class="profile">
+        {{shared.customerData.first_name}} {{shared.customerData.last_name}}
+        <br>
+        <span class="small-text">{{shared.customerData.designation}}</span>
+  
+  
+      </h3>
+  
+      <div class="dropdown" style="display: inline-block;">
+        <button class="drpbtn" style=" background-color: transparent!important">
+          <i class="fas fa-cog icon" style="color:black!important"></i>
+        </button>
+        <div class="dropdown-content2">
+  
+          <button class="button1"> No Setting Available</button>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="card">
+                <div class="card-body p-0">
+                    <!--Profile Image-->
+
+                    <mat-stepper #stepper [disableRipple]="true">
+                        <mat-step>
+                            <div class="row-g3">
+                                <div class="col-md-12">
+                                    <h1 class="heading_1" style="left: -33px;">Add Project </h1>
+                                </div>
+                            </div>
+                          <!-- <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel></ng-template> -->
+                            <!-- first step -->
+                        <!-- <div class="row-g3">
+                            <div class="col-md-12">
+                                <h1 class="heading_1">Add Project </h1>
+                            </div>
+                        </div> -->
+                        <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+                        <!--Profile Image-->
+
+                        <div class="row" style="padding-top:2%">
+                            <div class="col-md-12">
+                                <div class="form-group d-flex flex-column ">
+                                <label >Project Name *</label>
+                                <!-- <input type="text" [(ngModel)]="formData.projectname" class="inp"> -->
+                                <input id="typeahead-basic" class="form-select" type="text" [(ngModel)]="formData.projectname"
+                                style="width: 100%; height: 37px; border-radius: 5px;"/>
+                            </div>
+                               
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:2%">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                <label >Client Name *</label><br>
+                                <!-- <input type="text" [(ngModel)]="formData.projectname" class="inp"> -->
+                                <!-- <input id="typeahead-basic" type="text" [(ngModel)]="formData.clientname"  class="form-control" [(ngModel)]="model.clientname"/> -->
+                                <select  id="typeahead-basic" style="box-shadow: none;display: inline;" [(ngModel)]="formData.clientname"
+                                (ngModelChange)="SelectClient($event)"
+                                style="width: 100%; height: 37px; border-radius: 5px;">
+
+                                <option *ngFor="let a of AllCustomers" [ngValue]="a.id">
+                                    <span>{{(a.first_name!=null || a?.first_name!='') ? a.first_name: ''}}
+                                        {{a?.last_name}}
+                                    </span>
+                                </option>
+
+                            </select>
+                            </div>
+                        </div>
+                     </div>
+
+                        <div class="row" style="padding-top:3%" >
+                            <div class="col-md-4">
+                                <label >Start Date</label><br>
+                                <input type="date" (change)="getBusinessDatesCount()" [(ngModel)]="formData.startdate" class="startDate">
+                            </div>
+                            <div class="col-md-4">
+                                <label style="margin-left: 80px;">End Date</label><br>
+                                <input (change)="getBusinessDatesCount()" style="margin-left: 80px;" type="date" [(ngModel)]="formData.enddate" class="startDate">           
+                            </div>
+                            <div class="col-md-4" >
+                                <label style="margin-left: 115px;" >Working Days</label><br>
+                                <input style="margin-left: 115px" id="typeahead-basic"  type="text" [(ngModel)]="formData.workingDays"  class="form-control working_days"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" style="padding: 0 !important;">
+                            <label style=" margin-top:3%;">Project Description</label>
+                            <br>
+                            <textarea id="typeahead-basic" maxlength="1000" rows="3" [(ngModel)]="formData.projectdesc" class="descrition"></textarea>
+                            <br>
+                            <small>Max Project Description is 1000 words*</small>
+                        </div>
+
+                        <!-- descrition section -->
+
+                    <h1 class="heading_2" style="margin-top: 2%; margin-bottom: 2%;  margin-left: -36px;" >Project Location</h1>
+                        
+                        <div class="row" >
+                            <div class="col-md-4">
+                                <label >Customer Address *</label><br>
+                                <input id="typeahead-basic" type="text" [(ngModel)]="formData.customerAddress"  class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <label >Postal Code *</label><br>
+                                <input  id="typeahead-basic" type="text" [(ngModel)]="formData.CustomerPostalCode"  class="form-control"/>
+                            </div>
+                            <div class="col-md-4" >
+                                <label >City *</label><br>
+                                <input id="typeahead-basic" type="text" [(ngModel)]="formData.CustomerCity"  class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-top: 2%;">
+                            <div class="col-md-4">
+                                <!-- <label for="">same as above</label> -->
+                                <button (click)="sameAddress()">Same as above</button>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 2%;">
+                            <div class="col-md-4">
+                                <label >Project Address *</label><br>
+                                <input id="typeahead-basic" type="text" [(ngModel)]="formData.ProjectAddress"  class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <label >Postal Code *</label><br>
+                                <input  id="typeahead-basic" type="text" [(ngModel)]="formData.ProjectPostal"  class="form-control" />
+                            </div>
+                            <div class="col-md-4" >
+                                <label >City *</label><br>
+                                <input id="typeahead-basic" type="text" [(ngModel)]="formData.ProjectCity"  class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 2%; padding-bottom:2%">
+                            <div class="col-md-4">
+                        
+                            </div>
+                            <div class="col-md-3">
+                                <button class="cancelBtn" (click)="stepper.previous()">
+                                    Back
+                                </button>
+
+                                <button class="nextBtn" (click)="createProject()">
+                                    Next
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                        
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                            <!-- first step -->
+                            <!-- <div>
+                              <p>Go to a different step to see the error state</p>
+                              <button mat-button matStepperNext>Next</button>
+                            </div> -->
+                          <!-- </form> -->
+                        </mat-step>
+                        <mat-step>
+                          <!-- <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel></ng-template> -->
+                            <!-- second step -->
+                            <div class="row-g3">
+                                <div class="col-md-12">
+                                    <h1 class="heading_1" style="top: -93px; left: -36px;">Upload Documents </h1>
+                                </div>
+                            </div>
+                            
+                            <div class="container" style="margin-top: 3%;">
+                                <div class="row align-items-start ">
+                                  <div class="col">
+                                    <div class="item">
+                                        <input type="file" accept="pdf/*" (change)="uploadOfferWithPriceFile($event)"  #file style="display: none;" size="200" id="myfile" name="myfile">
+                                        <span (click)="file.click()">
+                                            <img src="../../../../../assets/icons/offericon.png" alt="">
+                                        </span >
+                                        <span (click)="file.click()" class="drag">Drag and Drop/ Browse</span>
+                                        <span (click)="file.click()">Max size 100 MB</span>
+                                        <div class="remove-img-btn d-flex flex-row justify-content-center">
+                                            <div style="max-width: 175px;" *ngIf="offerPdfFileName" class="fileName">{{offerPdfFileName}}</div>
+                                            <svg *ngIf="offerPdfFileName" (click)="resetOfferWithPriceFile(offerWithPriceFile)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </div>
+                                    </div>
+
+<!--                                     
+                                    <a (click)="downloadFile()" >link</a>
+                                    <div class="small-box bg-primary" *ngIf="projectDetails?.project_offer != null">
+                                    <div class="inner">
+                                        <h4 style="text-align: center;">Project Offer</h4>
+    
+                                        <p style="text-align: center;">Download your project offer.
+    
+                                        </p>
+    
+                                    </div>
+                                    <a class="small-box-footer">Download
+                                        <i class="fas fa-arrow-circle-down"></i></a>
+                                </div> -->
+
+
+                                    <h1>OFFER</h1>
+                                    <span class="head">(WITH PRICE)</span>
+                                  </div>
+                                  <div class="col">
+                                    <div class="item" >
+                                        <input type="file" accept="pdf/*"  #file2 (change)="uploadOfferWithoutPriceFile($event)" style="display: none;" size="200" id="myfile" name="myfile">
+                                        <span (click)="file2.click()">
+                                            <img src="../../../../../assets/icons/offericon.png" alt="">
+                                        </span >
+                                        <span (click)="file2.click()" class="drag">Drag and Drop/ Browse</span>
+                                        <span (click)="file2.click()">Max size 100 MB</span>
+                                        <div class="remove-img-btn d-flex flex-row justify-content-center">
+                                            <div style="max-width: 175px;" *ngIf="offerNoRricePdfFileName"  class="fileName">{{offerNoRricePdfFileName}}</div>
+                                            <svg *ngIf="offerNoRricePdfFileName" (click)="resetOfferWithoutPriceFile(offerWithoutPriceFile)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </div>
+                                    </div>
+
+
+                                   
+                                    <h1>OFFER</h1>
+                                    <span class="head">(WITHOUT PRICE)</span>
+                                  </div>
+                                  <div class="col">
+                                    <div class="item">
+                                        <input type="file" accept="pdf/*" #file3 (change)="uploadDrawingFile($event)" style="display: none;" size="200" id="myfile" name="myfile">
+                                        <span (click)="file3.click()">
+                                            <img src="../../../../../assets/icons/drawing.png" alt="">
+                                        </span >
+                                        <span (click)="file3.click()" class="drag">Drag and Drop/ Browse</span>
+                                        <span (click)="file3.click()">Max size 100 MB</span>
+                                        <div class="remove-img-btn d-flex flex-row justify-content-center">
+                                            <div style="max-width: 175px;" *ngIf="drawingPdfFileName"  class="fileName">{{drawingPdfFileName}}</div>
+                                            <svg *ngIf="drawingPdfFileName" (click)="resetDrawingFile(drawingFile)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                            </div>
+                                    </div>
+                                    <h1>DRAWING</h1>
+                                  </div>
+                                  <div class="col">
+                                    <div class="item">
+                                        <input type="file" accept="pdf/*" #file4 (change)="uploadContractFile($event)"   style="display: none;" size="200" id="myfile" name="myfile">
+                                        <span (click)="file4.click()">
+                                            <img src="../../../../../assets/icons/contract-icon.png" alt="">
+                                        </span >
+                                        <span (click)="file4.click()" class="drag">Drag and Drop/ Browse</span>
+                                        <span (click)="file4.click()">Max size 100 MB</span>
+                                        <div class="remove-img-btn d-flex flex-row justify-content-center">
+                                            <div  style="max-width: 175px;" *ngIf="contractPdfFileName"  class="fileName">{{contractPdfFileName}}</div>
+                                            <svg *ngIf="contractPdfFileName" (click)="resetContractFile(contractFile)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                              </svg>
+                                        </div>
+                                    </div>
+                                    <h1>CONTRACT</h1>
+                                  </div>
+                                </div>
+                                
+                         <div class="row" style="margin-top: 2%; padding-bottom:2%">
+                            <div class="col-md-4">
+                        
+                            </div>
+                            <div class="col-md-3">
+                                <button class="cancelBtn" (click)="stepper.previous()">
+                                    Back
+                                </button>
+
+                                <button class="nextBtn" (click)="addDocuments()">
+                                    Next
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                        
+                            </div>
+                        </div>
+                    </div>
+                            <!-- second step -->
+                          <!-- </form> -->
+                        </mat-step>
+                        <mat-step>
+
+                            <div class="row-g3">
+                                <div class="col-md-12">
+                                    <h1 class="heading_1" style="top: -63px; left: -34px;">Add Project Manager</h1>
+                                </div>
+                            </div>
+                          <!-- <ng-template matStepLabel>Done</ng-template> -->
+                          <!-- <p>You are now done.</p> -->
+                          <!-- <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button (click)="stepper.reset()">Reset</button>
+                          </div> -->
+
+                          <!-- 3rd step -->
+                          <!-- <ngx-slick-carousel class="carousel" 
+                        #slickModal="slick-carousel" 
+                        [config]="slideConfig" 
+                        (init)="slickInit($event)"
+                        (breakpoint)="breakpoint($event)"
+                        (afterChange)="afterChange($event)"
+                        (beforeChange)="beforeChange($event)">
+                    <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                        <img src="{{ slide.img }}" alt="" width="100%">
+                    </div>
+                </ngx-slick-carousel> -->
+                 <!-- 3rd step -->
+                <div class="row center d-flex justify-content-center" style="padding-top:1%;padding-bottom:2%">
+                    <div class="addprojectdiv">
+                        <img style="width: 37px" src="../../../../../assets/icons/manager.png" alt="">
+                        <button class="addBtn" (click)="addMember(addProjectManagerModal)">
+                            <i class="fas fa-plus"></i>
+                            <span style="font-weight: 600;"> Add Project Manager</span>
+                        </button>
+                    </div>
+                </div>          
+                <!-- <div class="row d-flex justify-content-center align-items-center" style="padding-top:10%;padding-bottom:2%">
+                    <div class="col-md-1">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="pm_section">
+                                <span style="text-align: center;">
+                                    <img style="height:150px;width:150px;border-radius:50%;" src="../../../../../assets/img/tom.jpg" alt="">
+                                </span >
+                                <h3>Chris Wade</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <div class="pm_section">
+                                <span style="text-align: center;">
+                                    <img style="border-radius: 50%; width: 75%;" src="../../../../../assets/img/tom.jpg" alt="">
+                                </span >
+                                <h3>Chris Wade</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="pm_section">
+                                <span style="text-align: center;">
+                                    <img style="height:150px;width:150px;border-radius:50%;" src="../../../../../assets/img/tom.jpg" alt="">
+                                </span >
+                                <h3>Chris Wade</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-1 d-flex justify-content-end">
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </div>
+                    </div> -->
+
+                    <div style="text-align: center;">
+                        <p-carousel [value]="projectManagers" [ngClass]="'p-hide-paginator'" [numVisible]="3"
+                            [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+
+                            <ng-template let-product pTemplate="item">
+                                <div class="product-item">
+                                    <div class="product-item-content d-flex flex-row justify-content-center d-flex flex-row justify-content-center">
+
+                                        <div class="pm_section">
+                                            <div class="slctd_can_cross">
+                                                <i (click)="removeProjectManager(product.id)" class="fa fa-times" aria-hidden="true"></i>
+                                            </div>
+                                            <span style="text-align: center;">
+                                                <img style="height:150px;width:150px;border-radius:50%;" src="{{product.img}}" alt="">
+                                            </span >
+                                            <h5> 
+                                                {{(product.first_name != null || product?.first_name != '') ?
+                                                product.first_name : ''}}
+                                                {{product?.last_name}}
+                                            </h5>
+                                            <h5 *ngIf="product?.manager_type == '1'">
+                                                Economy
+                                              </h5>
+                                             <h5 *ngIf="product?.manager_type == '2'">
+                                                Architecture
+                                              </h5>
+                                              <h5 *ngIf="product?.manager_type == '3'">
+                                                Builder
+                                              </h5>
+                                             <h5 *ngIf="product?.manager_type == '4'">
+                                                Appraiser
+                                              </h5>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-carousel>
+                    </div>
+
+                    <div class="row" style="margin-top: 1%; padding-bottom:2%">
+                        <div class="col-md-4 ">
+                    
+                        </div>
+                        <div class="col-md-3">
+                            <button class="cancelBtn" (click)="stepper.previous()">
+                                Back
+                            </button>
+
+                            <button class="nextBtn" (click)="stepper.next()">
+                                Next
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                    
+                        </div>
+                    </div>
+
+                            <!--Add Team Member-->
+        <ng-template #addProjectManagerModal let-modal>
+            <div class="modal-header" style="text-align: center;">
+                <h4 class="modal-title" id="modal-basic-title" style="color: #fff; font-size:24px; font-weight: 500; margin-top:2%; ">
+                    Adding Project Managers
+                </h4>
+
+                <!-- <button style="background-color: transparent;margin-left:30%;border:none;margin-top:3%;">
+                    <label>Search:</label>
+                </button>
+
+                <input type="text" class="Search"> -->
+            </div>
+            <div class="modal-body">
+            <table class="table popUp-table ">
+            <thead >
+                <tr style="padding: 8px 0 8px 0 !important;">
+                    <th style="width: 1%">
+
+                    </th>
+                    <th style="width: 5%;">
+                        <span >Name</span>
+                    </th>
+                    <th style="width: 5%;">
+                        Types
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="" *ngFor="let a of allProjectManagers| filter:employee_name ;let i= index ">
+                    <td style="width: 1%;" style="vertical-align: middle;">
+                            <input type="checkbox" [checked]="getSelection(a)" (change)="changeHandler(a)">
+
+                    </td>
+
+                    <td style="width: 5%">
+                        <img alt="Avatar" src="{{a.img}}"
+                            style="width:55px; height: 55px; border-radius:50%;">
+                        
+                        <img *ngIf="!a.img" alt="Avatar" src="../../../../../assets/img/default_image.png"
+                            style="width:55px; height: 55px; border-radius:50%;">
+                            &nbsp;&nbsp;<span>{{a.first_name}} {{a.last_name}}
+
+                            </span>
+                    </td>
+
+                    <td style="width: 5%">
+                        <div style=" margin-top: 14px;">{{a.designation}}</div>
+                        </td>
+
+                </tr>
+
+            </tbody>
+            
+        </table>
+
+        <div class="row" style="margin-top: 1%; padding-bottom:5%">
+            <div class="col-md-4"></div>
+            <div class="col-md-3">
+                <button class="cancelBtn" (click)="modal.close('okay')">
+                    Cancel
+                </button>
+                <button class="nextBtn" (click)="addSelectedManagers()">
+                    Add
+                </button>
+            </div>
+            <!-- <div class="col-md-2">
+            </div> -->
+            <div class="col-md-4"></div>
+
+        </div>
+
+    </div>
+
+
+</ng-template>
+
+
+                          <!-- 3rd step -->
+                        </mat-step>
+
+                        <mat-step>
+                            <!-- 4th step -->   
+                            <div class="row-g3">
+                                <div class="col-md-12">
+                                    <h1 class="heading_1" style="left: -32px">Add Employees </h1>
+                                </div>
+                            </div>
+                            <div class="row center d-flex justify-content-center" style="padding-top:1%;padding-bottom:2%">
+                                <div class="addprojectdiv" style="padding: 20px 15px 20px 15px;">
+                                    <img style="width: 85px" src="../../../../../assets/icons/employees.png" alt="">
+                                    <button class="addBtn" style="margin-top: 19px;" (click)="addEmployee(addEmployeeModal)">
+                                        <i class="fas fa-plus"></i>
+                                        <span style="font-weight: 600;"> Add Employees</span>
+                                    </button>
+                                </div>
+                            </div>          
+                            <div style="text-align: center;">
+                                <p-carousel [value]="Employees" [ngClass]="'p-hide-paginator'" [numVisible]="3"
+                                    [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+        
+                                    <ng-template let-product pTemplate="item">
+                                        <div class="product-item">
+                                            <div class="product-item-content d-flex flex-row justify-content-center">
+                                                <!-- <div class="p-mb-3">
+                                                    <img style="height:120px;width:120px;border-radius:50%;"
+                                                        src="{{product.img}}">
+                                                </div> -->
+        
+                                                <!-- <p style="padding-top:4%;font-size:20px;font-weight:bold;height:50px;">
+                                                    {{(product.first_name != null || product?.first_name != '') ?
+                                                    product.first_name : ''}}
+                                                    {{product?.last_name}}
+                                                </p> -->
+        
+                                                <!-- <p style="font-size:12px;">{{product.designation_name}}</p> -->
+        
+                                                <!-- <button class="chatBtn2">Chat Now</button> -->
+        
+                                                <div class="pm_section">
+                                                    <div class="slctd_can_cross">
+                                                        <i (click)="removeEmployee(product.id)" class="fa fa-times" aria-hidden="true"></i>
+                                                    </div>
+                                                    <span style="text-align: center;">
+                                                        <img style="height:150px;width:150px;border-radius:50%;" src="{{product.img}}" alt="">
+                                                    </span >
+                                                    <h5> 
+                                                        {{(product.first_name != null || product?.first_name != '') ?
+                                                        product.first_name : ''}}
+                                                        {{product?.last_name}}
+                                                    </h5>
+                                                    <h5> {{product?.designation_name}}</h5>
+                                                </div>
+        
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-carousel>
+                            </div>
+            
+                                <div class="row" style="margin-top: 1%; padding-bottom:2%">
+                                    <div class="col-md-4 ">
+                                
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="cancelBtn" (click)="stepper.previous()">
+                                            Back
+                                        </button>
+            
+                                        <button class="nextBtn" (click)="stepper.next()">
+                                            Next
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4">
+                                
+                                    </div>
+                                </div>
+            
+                                        <!--Add Team Member-->
+                    <ng-template #addEmployeeModal let-modal>
+                        <div class="modal-header" style="text-align: center;">
+                            <h4 class="modal-title" id="modal-basic-title" style="color: #fff; font-size:24px; font-weight: 500; margin-top:2%; ">
+                                Adding Employees
+                            </h4>
+            
+                            <!-- <button style="background-color: transparent;margin-left:30%;border:none;margin-top:3%;">
+                                <label>Search:</label>
+                            </button>
+            
+                            <input type="text" class="Search"> -->
+                        </div>
+                        <div class="modal-body">
+                        <table class="table popUp-table ">
+                        <thead >
+                            <tr style="padding: 8px 0 8px 0 !important;">
+                                <th style="width: 1%">
+            
+                                </th>
+                                <th style="width: 5%;">
+                                    <span >Name</span>
+                                </th>
+                                <th style="width: 5%;">
+                                    Designation
+                                </th>
+            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr class="" *ngFor="let a of availableEmps| filter:employee_name ; let i= index ">
+                                <td style="width: 1%;">
+                                        <input type="checkbox" [checked]="getEmpSelection(a)" (change)="changeEmpHandler(a)">
+            
+                                </td>
+            
+                                <td style="width: 5%">
+                                    <img alt="Avatar" src="{{a.img}}"
+                                        style="width:55px; height: 55px; border-radius:50%;">
+                                    
+                                        &nbsp;&nbsp;<span>{{a.first_name}} {{a.last_name}}
+            
+                                        </span>
+                                </td>
+            
+                                <td style="width: 5%">
+                                    <div style=" margin-top: 14px;">{{a.designation}}</div>
+                                    </td>
+            
+                            </tr> -->
+
+                            <tr class="" *ngFor="let a of availableEmps| filter:employee_name ;let i= index ">
+                                <td style="width: 1%;" style="vertical-align: middle;">
+                                        <input type="checkbox" [checked]="getEmpSelection(a)" (change)="changeEmpHandler(a)">
+            
+                                </td>
+            
+                                <td style="width: 5%">
+                                    <img alt="Avatar" src="{{a.img}}"
+                                        style="width:55px; height: 55px; border-radius:50%;">
+                                    
+                                    <img *ngIf="!a.img" alt="Avatar" src="../../../../../assets/img/default_image.png"
+                                        style="width:55px; height: 55px; border-radius:50%;">
+                                        &nbsp;&nbsp;<span>{{a.first_name}} {{a.last_name}}
+            
+                                        </span>
+                                </td>
+            
+                                <td style="width: 5%">
+                                    <div style=" margin-top: 14px;">{{a.designation}}</div>
+                                    </td>
+            
+                            </tr>
+            
+                        </tbody>
+                        
+                    </table>
+            
+                    <div class="row" style="margin-top: 1%; padding-bottom:5%">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-3">
+                            <button class="cancelBtn" (click)="modal.close('okay')">
+                                Cancel
+                            </button>
+                            <button class="nextBtn" (click)="addSelectedEmpls()">
+                                Add
+                            </button>
+                        </div>
+                        <!-- <div class="col-md-2">
+                        </div> -->
+                        <div class="col-md-4"></div>
+            
+                    </div>
+            
+                </div>
+                    
+            
+            </ng-template>
+
+                            <!-- 4th step -->
+
+                        </mat-step>
+                        <mat-step>
+                        <!-- 5th step -->   
+                        <div class="row-g3">
+                            <div class="col-md-12">
+                                <h1 class="heading_1" style="top: -61px; left: -35px;">Add Company Worker </h1>
+                            </div>
+                        </div>
+
+                        <div class="row center d-flex justify-content-center" style="padding-top:1%;padding-bottom:2%">
+                            <div class="addprojectdiv" style="padding: 20px 15px 20px 15px;width: 340px;">
+                                <img style="width: 85px" src="../../../../../assets/icons/company-worker-icon.png" alt="">
+                                <button class="addBtn" style="margin-top: 27px;" (click)="addCompanyWorker(addCompanyWorkerModal)">
+                                    <i class="fas fa-plus"></i>
+                                    <span style="font-weight: 600;"> Add Company Worker</span>
+                                </button>
+                            </div>
+                        </div>          
+                        <div style="text-align: center;">
+                            <p-carousel [value]="allProjectComapnies" [ngClass]="'p-hide-paginator'" [numVisible]="3"
+                                [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+    
+                                <ng-template let-product pTemplate="item">
+                                    <div class="product-item">
+                                        <div class="product-item-content d-flex flex-row justify-content-center">
+                                            <!-- <div class="p-mb-3">
+                                                <img style="height:120px;width:120px;border-radius:50%;"
+                                                    src="{{product.img}}">
+                                            </div> -->
+    
+                                            <!-- <p style="padding-top:4%;font-size:20px;font-weight:bold;height:50px;">
+                                                {{(product.first_name != null || product?.first_name != '') ?
+                                                product.first_name : ''}}
+                                                {{product?.last_name}}
+                                            </p> -->
+    
+                                            <!-- <p style="font-size:12px;">{{product.designation_name}}</p> -->
+    
+                                            <!-- <button class="chatBtn2">Chat Now</button> -->
+    
+                                            <div class="pm_section">
+                                                <div class="slctd_can_cross">
+                                                    <i (click)="removeCompanyWorker(product.id)" class="fa fa-times" aria-hidden="true"></i>
+                                                </div>
+                                                <span style="text-align: center;">
+                                                    <img style="height:150px;width:150px;border-radius:50%;" src="{{product.image}}" alt="">
+                                                </span >
+                                                <h3> 
+                                                    <!-- {{(product.name != null || product?.name != '') ?
+                                                    product.first_name : ''}}
+                                                    {{product?.name}} -->
+                                                    {{product?.name}}
+                                                </h3>
+                                            </div>
+    
+    
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-carousel>
+                        </div>
+
+                        <div class="row" style="padding-top:1%;padding-bottom:2%">
+                            <div class="col-md-4 ">
+                        
+                            </div>
+                            <div class="col-md-3">
+                                <button class="cancelBtn" (click)="stepper.previous()">
+                                    Back
+                                </button>
+    
+                                <button class="nextBtn" (click)="stepper.next()">
+                                    Next
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                        
+                            </div>
+                        </div>
+        
+                                    <!--Add Team Member-->
+                <ng-template #addCompanyWorkerModal let-modal>
+                    <div class="modal-header" style="text-align: center;">
+                        <h4 class="modal-title" id="modal-basic-title" style="color: #fff; font-size:24px; font-weight: 500; margin-top:2%; ">
+                            Adding Company Worker
+                        </h4>
+        
+                        <!-- <button style="background-color: transparent;margin-left:30%;border:none;margin-top:3%;">
+                            <label>Search:</label>
+                        </button>
+        
+                        <input type="text" class="Search"> -->
+                    </div>
+                    <div class="modal-body">
+                        <table class="table popUp-table ">
+                    <thead >
+                        <tr style="padding: 8px 0 8px 0 !important;">
+                            <th style="width: 1%">
+        
+                            </th>
+                            <th style="width: 5%;">
+                                <span >Name</span>
+                            </th>
+                            <th style="width: 5%;">
+                                Organization Number
+                            </th>
+        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="" *ngFor="let a of companies| filter:employee_name ;let i= index ">
+                            <td style="width: 1%;" style="vertical-align: middle;">
+                                    <input type="checkbox" [checked]="getCWSelection(a)" (change)="changeCWHandler(a)">
+        
+                            </td>
+        
+                            <td style="width: 5%">
+                                <img *ngIf="a.img != ''" alt="Avatar" src="{{a.image}}"
+                                    style="width:55px; height: 55px; border-radius:50%;">
+                                
+                                <img *ngIf="a.img == ''" alt="Avatar" src="../../../../../assets/img/default_image.png"
+                                    style="width:55px; height: 55px; border-radius:50%;">
+                                    &nbsp;&nbsp;<span>{{a.name}}
+        
+                                    </span>
+                            </td>
+        
+                            <td style="width: 5%">
+                                <div style=" margin-top: 14px;">{{a.organization_number}}</div>
+                                </td>
+        
+                        </tr>
+                    
+        
+                    </tbody>
+                </table>
+        
+                <div class="row" style="margin-top: 1%; padding-bottom:5%">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-3">
+                        <button class="cancelBtn" (click)="modal.close('okay')">
+                            Cancel
+                        </button>
+                        <button class="nextBtn" (click)="addCW()">
+                            Add
+                        </button>
+                    </div>
+                    <!-- <div class="col-md-2">
+                    </div> -->
+                    <div class="col-md-4"></div>
+        
+                </div>
+        
+            </div>
+        
+        
+        </ng-template>
+
+                        <!-- 5th step -->
+
+                        </mat-step>
+
+                        <mat-step>
+
+                            <div class="row-g3">
+                                <div class="col-md-12">
+                                    <h1 class="heading_1" style="top: -146px;left: -35px;">Choose Templates </h1>
+                                </div>
+                            </div>
+                            <!-- 6th step -->
+                            <div class="container" style="margin-top: 8%;">
+                                <div class="row ">
+                                  <div class="col" style="text-align: start;">
+                                    <div class="item" style="width: 17vw;">
+                                        <input type="file" accept="pdf/*" (change)="fileEvent($event)"  #file style="display: none;" size="200" id="myfile" name="myfile">
+                                            <img (click)="file.click()" style="width: 65%;" src="../../../../../assets/icons/template-red.png" alt="">  
+                                    </div>
+                                    <h1 style="margin-left: 22px;">TEMPLATE 1</h1>
+                                    <span style="margin-left: 16px;" class="head">(BATH RENOVATION)</span>
+                                  </div>
+                                  <div class="col" style="text-align: start;">
+                                    <div class="item" style="width: 17vw;">
+                                        <input type="file" accept="pdf/*" (change)="fileEvent($event)"  #file style="display: none;" size="200" id="myfile" name="myfile">
+                                            <img (click)="file.click()" style="width: 65%;" src="../../../../../assets/icons/template-red.png" alt="">                                   
+                                    </div>
+                                    <h1 style="margin-left: 22px;">TEMPLATE 2</h1>
+                                    <span style="margin-left: 16px;" class="head">(BATH CONSTRUTION)</span>
+                                  </div>
+                                  <div class="col" style="text-align: start;">
+                                    <div class="item" style="width: 17vw;" >
+                                        <input type="file" accept="pdf/*" (change)="fileEvent($event)"  #file style="display: none;" size="200" id="myfile" name="myfile">
+                                            <img (click)="file.click()" style="width: 65%;" src="../../../../../assets/icons/template-red.png" alt="">
+                                    </div>
+                                    <h1 style="margin-left: 22px;">TEMPLATE 3</h1>
+                                    <span style="margin-left: 16px;" class="head">(ADD NEW TEMPLATE)</span>
+                                  </div>
+                                  <!-- <div class="col">
+                                    <div class="item">
+                                        <input type="file" accept="pdf/*" (change)="fileEvent($event)"  #file style="display: none;" size="200" id="myfile" name="myfile">
+                                        <span (click)="file.click()">
+                                            <img style="width: 100%" src="../../../../../assets/icons/offericon.png" alt="">
+                                        </span >
+                                    </div>
+                                    <h1>OFFER</h1>
+                                    <span class="head">(WITHOUT PRICE)</span>
+                                  </div> -->
+                            </div>
+                                
+                         <div class="row" style="padding-top:2%;padding-bottom:2%">
+                            <div class="col-md-4">
+                        
+                            </div>
+                            <div class="col-md-3">
+                                <button class="cancelBtn" (click)="stepper.previous()">
+                                    BacK
+                                </button>
+
+                                <button class="nextBtn" (click)="stepper.next()">
+                                    Next
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                        
+                            </div>
+                        </div>
+                    </div>
+
+                            <!-- 6th step -->
+
+                        </mat-step>
+
+                        <mat-step>
+                            <!-- 7th step -->
+                            <div class="row-g3">
+                                <div class="col-md-12">
+                                    <h1 class="heading_1" style="top: -81px;left: -34px;">Assigned Tasks </h1>
+                                </div>
+                            </div>
+                                         
+                <div class="col-lg-12 " *ngFor=" let a of steps;let i = index">
+                    <div class="card-steps" >
+                        <div class="card-body" style="padding: 8px 0 8px 0 !important; border: 2px solid #DC3545;
+                                border-radius: 20px;">
+                            <div class="row">
+                                <div class="col-md-2 d-flex flex-row justify-content-start">
+                                    <h4>Step {{i + 1}}</h4>
+                                    <button class="adBtn" (click)="createStep(a.step_order+1)">
+                                        <i class="fas fa-plus" style="margin-top:5px;"></i>
+                                    </button>
+                                    <button class="deleteBtn" *ngIf="i != 0" (click)="deleteStep(a.id)">
+                                        <i class="fas fa-trash-alt" style="margin-top:5px;
+                                        color: #fff;"></i>
+                                    </button>
+                            </div>
+                                <div class="col-md-6"></div>
+
+                                <div class="col-md-3 d-flex flex-row justify-content-center align-items-center">
+                                    <strong> Percentage</strong> &nbsp;
+                                    <input type="text" id="typeahead-basic" [(ngModel)]="a.percentage" #percentage class="form-control" (change)="updateStepPercentage(a.step_order,a.id, percentage.value)"  id="percentage"    
+                                    style="width: 50px; border-radius: 10px;
+                                    padding: 2px 0 2px 9px;">
+                                </div>
+                            </div>
+                           
+                            <table class="table projects">
+
+                                <tbody>
+                                   
+                                    <tr *ngFor="let c of a?.task_details">
+                                        <td width="3%">
+                                            <input type="checkbox" id="vehicle1" (change)="updateAssignedTo(c,a)"
+                                                name="vehicle1" [(ngModel)]="c.is_important">
+                                        </td>
+                                        <td width="25%">
+                                            <input id="typeahead-basic" placeholder="Task Name" type="text" class="form-control"  (blur)="updateAssignedTo(c,a)" [disabled]="c?.company_worker!=null"
+                                                (change)="updateAssignedTo(c,a)" [(ngModel)]="c.title">
+                                        </td>
+                                        <td width="20%">
+
+                                            <select *ngIf="c.employee_id != 0" class="inputbox form-select form-select-lg " style="height: 40px" id="typeahead-basic" [(ngModel)]="c.employee_id"
+                                                (select)="updateAssignedTo(c,a)" (change)="updateAssignedTo(c,a)">
+                                                <option value="-1" >Assign to</option>
+                                                <option [ngValue]="b.id" *ngFor="let b of allEmployyesOfProject"
+                                                    style="color:black">
+                                                    {{b.first_name != null  ? b.first_name +  b.last_name : b.name}}
+                                                </option>
+                                            </select>
+
+                                            <select *ngIf="c.manager_id != 0" class="inputbox form-select form-select-lg " style="height: 40px" id="typeahead-basic" [(ngModel)]="c.manager_id"
+                                            (select)="updateAssignedTo(c,a)" (change)="updateAssignedTo(c,a)">
+                                            <option value="-1" >Assign to</option>
+                                            <option [ngValue]="b.id" *ngFor="let b of allEmployyesOfProject"
+                                                style="color:black">
+                                                {{b.first_name != null  ? b.first_name +  b.last_name : b.name}}
+                                            </option>
+                                        </select>
+
+                                        <select *ngIf="c.company_id != 0" class="inputbox form-select form-select-lg " style="height: 40px" id="typeahead-basic" [(ngModel)]="c.company_id"
+                                        (select)="updateAssignedTo(c,a)" (change)="updateAssignedTo(c,a)">
+                                        <option value="-1" >Assign to</option>
+                                        <option [ngValue]="b.id" *ngFor="let b of allEmployyesOfProject"
+                                            style="color:black">
+                                            {{b.first_name != null  ? b.first_name +  b.last_name : b.name}}
+                                        </option>
+                                    </select>
+
+                                            <!-- <select class="inputbox form-select form-select-lg " style="height: 40px" id="typeahead-basic" [disabled]="c?.company_worker==null || c?.company_worker!=this.shared?.customerData?.company" class="inputbox" [(ngModel)]="c.employee_id"
+                                                (select)="updateTsk(c,a)" (change)="updateTsk(c,a)"
+                                                *ngIf="c?.company_worker != null">
+                                                <option value="-1" >Select Employee</option>
+                                                <option [ngValue]="b.id" *ngFor="let b of CTEmployees"
+                                                    style="color:black">
+                                                    {{(b.first_name != null || b?.first_name != '') ? b.first_name :''}}
+                                                    {{b?.last_name}}</option>
+                                            </select> -->
+                                        </td>
+                                        <td width="15%">
+                                            <select class="inputbox form-select form-select-lg " style="height: 40px" id="typeahead-basic" [(ngModel)]="c.task_status" [disabled]="c?.company_worker!=null"
+                                                (select)="updateAssignedTo(c,a)" (change)="updateAssignedTo(c,a)">
+                                                <option value="0" >Pending</option>
+                                                <option value="1">In Progress</option>
+                                                <option value="2">Completed</option>
+
+                                            </select>
+                                        </td>
+                                        <td width="8%">
+                                            <input style=" height: 40px" type="date" class="startDate" [(ngModel)]="c.deadline" [disabled]="c?.company_worker!=null"
+                                                (change)="updateAssignedTo(c,a)">
+
+                                        </td>
+                                        <td *ngIf="c?.company_worker == null" style="width:5%">
+                                            <button class="deleteBtn" (click)="deleteTsk(c.id)">
+
+                                                <i class="fas fa-trash-alt"
+                                                    style="margin-top:5px; margin-left:-2px; color: #fff"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="3%">
+                                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"
+                                                [formControl]="Important" >
+                                        </td>
+                                        <td width="25%">
+
+                                            <input type="text" id="typeahead-basic" class="form-control" placeholder="Enter Task Detail"
+                                                [formControl]="title" >
+
+                                        </td>
+                                        <td width="20%">
+                                            <select class="inputbox form-select form-select-lg " style="height: 40px" id="typeahead-basic" [formControl]="employee"
+                                            >
+                                            <option value="-1" >Assign to</option>
+                                                <option value="{{b.id}}" *ngFor="let b of allEmployyesOfProject"
+                                                    style="color:black">
+                                                    {{b.first_name != null  ? b.first_name +  b.last_name : b.name}}
+                                                    <!-- {{b?.last_name}} -->
+                                                    <!-- {{(b?.name != null) ?  :''}} -->
+                                                    
+
+                                                </option>
+
+                                            </select>
+
+                                        </td>
+
+
+                                        <td width="15%">
+
+                                            <select class="inputbox form-select form-select-lg " style="height: 40px" id="typeahead-basic" [formControl]="status1"
+                                            >
+                                                <option value="0" >Pending</option>
+                                                <option value="1">In Progress</option>
+                                                <option value="2">Completed</option>
+
+                                            </select>
+                                        </td>
+
+                                        <td width="8%">
+                                            <input style=" height: 40px" type="date" class="startDate" [formControl]="deadline1"
+                                            >
+                                        </td>
+                                        <td style="width:5%">
+                                            <button class="adBtn" (click)="addItem(a.id)">
+                                                <i class="fas fa-plus" style="margin-top:5px;margin-left:-2px;"></i>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 2%; padding-bottom:2%">
+                    <div class="col-md-4 ">
+                
+                    </div>
+                    <div class="col-md-3">
+                        <button class="cancelBtn" (click)="stepper.previous()">
+                            Back
+                        </button>
+
+                        <button class="nextBtn" (click)="submitProject()">
+                            Submit
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                
+                    </div>
+                </div>
+
+                            <!-- 7th step -->
+
+                        </mat-step>
+                      </mat-stepper>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+        </div>
+    </section>
+    <!-- /.row -->
+</div>
+    <!-- /.content -->
+
+<!-- /.content-wrapper -->

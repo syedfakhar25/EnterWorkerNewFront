@@ -1,0 +1,224 @@
+<!-- Content Wrapper. Contains page content -->
+<div>
+    <!-- Content Header (Page header) -->
+    <div class="curve">
+        <p></p>
+    </div>
+    <!-- Content Header (Page header) -->
+    <div class="row">
+        <div class="col-md-4">
+            <h3 class="heading"><strong>Add New Template</strong></h3>
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+
+        <div class="col-md-6" style="text-align: right;">
+
+            <!-- <div class="dropdown" style="display: inline-block;margin-left:10%;">
+                <button class="drpBtn">
+                    <img style="height:30px;width:40px;margin-top:-20px" src="../../../../../assets/img/en.png">
+                </button>
+                <div class="dropdown-content">
+                    <a (click)="changeLang('../../../../../assets/images/en.png','en')"><img
+                            style="height:30px;width:50px;" src="../../../../../assets/img/en.png"></a>
+                    <a (click)="changeLang('../../../../../assets/images/no.png','no')"><img
+                            style="height:30px;width:50px;" src="../../../../../assets/img/en.png"></a>
+
+                </div>
+            </div> -->
+
+            <div class="dropdown" style="display: inline-block;">
+                <button class="drpbtn" style=" background-color: transparent!important">
+                    <i class="fas fa-bell icon" style="color:black!important"></i>
+                </button>
+                <div class="dropdown-content2">
+
+                    <button class="button1"> No Today's Events</button>
+                </div>
+            </div>
+
+            <div class="dropdown1" style="display: inline-block;">
+                <button class="drpbtn" style=" background-color: transparent!important">
+                    <img src="{{shared.customerData.img}}" class="img-circle profile-pic" alt="User Image">
+                </button>
+                <div class="dropdown-content1">
+
+                    <button class="button1" (click)="logout()">Logout</button>
+                </div>
+            </div>
+
+            <h3 class="profile">
+                {{shared.customerData.first_name}} {{shared.customerData.last_name}}
+                <br>
+                <span class="small-text">{{shared.customerData.designation}}</span>
+
+            </h3>
+
+            <div class="dropdown" style="display: inline-block;">
+                <button class="drpbtn" style=" background-color: transparent!important">
+                    <i class="fas fa-cog icon" style="color:black!important"></i>
+                </button>
+                <div class="dropdown-content2">
+
+                    <button class="button1"> No Setting Available</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <section class="content" style="margin-top:1%;">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            
+                <div class="card">
+                    <div class="card-body"  >
+                        <mat-stepper #stepper [disableRipple]="true">
+                        <mat-step>
+                            <h5 class="heading-top">Template Name</h5>
+                    <div class="card-steps" style="padding: none !important; border: 2px solid #DC3545;
+                            border-radius: 20px;">
+                       <div class="row align-items-center" style="padding: 15px; ">
+                           <div class="col-md-2">
+                            <label> Template Name</label>
+                           </div>
+                           <div class="col-md-9">
+                            <input type="text" id="typeahead-basic" placeholder="Bathroom" class="form-control"
+                            [formControl]="templateName">
+                           </div>
+                       </div>
+                           
+                        </div>
+                        <div class="row" style="padding-top:3%;padding-bottom:3%; margin-bottom: 6%;">
+                            <div class="col-md-4 ">
+                        
+                            </div>
+                            <div class="col-md-3">
+                                <button class="cancelBtn" (click)="goToTemplates()">
+                                    Cancel
+                                </button>
+        
+                                <button class="nextBtn" (click)="addTemplate()">
+                                    Next
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                        
+                            </div>
+                        </div>
+
+                        <!-- /first step -->
+                        </mat-step>
+
+
+                        <!-- 2nd step -->
+            <mat-step>
+                        <h5 class="heading-top">Template Steps</h5>
+                <div class="card-body">
+                    <div class="card-steps" style="padding: none !important; border: 2px solid #DC3545; margin-top: 
+                    20px;
+                           border-radius: 20px;" *ngFor=" let a of steps;let i = index">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2 d-flex flex-row justify-content-around">
+                                    <h4>Step {{i + 1}}</h4>
+                                  
+                                <!-- <div class="col-md-1"> -->
+                                    <button class="adBtn" (click)="createStep(a.step_order+1)" >
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                    <button class="deleteBtn" *ngIf="i != 0" (click)="deleteStep(a.id)">
+                                        <i class="fas fa-trash-alt" style="
+                                        color: #fff;"></i>
+                                    </button>
+                                <!-- </div> -->
+                                <!-- <div class="col-md-4"></div> -->
+                                <div class="col-md-3"></div>
+
+                            </div>
+                           
+                            <table class="table projects">
+
+                                <tbody>
+                                    <tr *ngFor="let c of a?.task_details">
+                                        <td width="6%"></td>
+                                        <td width="60%">
+                                              <label >Task Detail</label>
+                                            <input id="typeahead-basic" placeholder="Task Name" type="text" class="form-control" 
+                                             (blur)="updateTsk(c,a)" [(ngModel)]="c.title"/>
+    
+                                        </td>
+
+                                        <td style="width:8%">
+                                            <button class="adBtn" (click)="addItem(a.id)" >
+                                                <i class="fas fa-plus" style="margin-top:5px;margin-left:-2px;"></i>
+                                            </button>
+
+                                            <button class="deleteBtn" style="margin-top: 30px; margin-left: 10px;" (click)="deleteTsk(c.id)">
+                                                <i class="fas fa-trash-alt"
+                                                    style="margin-top:5px; color: #fff;"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td width="6%"></td>
+                                        <td width="60%">
+                                              <label >Task Detail</label>
+                                            <input id="typeahead-basic" placeholder="Task Name" type="text" class="form-control" 
+                                            [formControl]="taskTitle"/>
+    
+                                        </td>
+
+                                        <td style="width:8%">
+                                            <button class="adBtn" (click)="addItem(a.id)" style="margin-top: 25px;">
+                                                <i class="fas fa-plus" style="margin-top:5px;margin-left:-2px;"></i>
+                                            </button>
+
+                                            <!-- <button class="deleteBtn" style="margin-top: 30px;">
+                                                <i class="fas fa-trash-alt"
+                                                    style="margin-top:5px; color: #fff;"></i>
+                                            </button> -->
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-top:3%;padding-bottom:3%; margin-bottom: 6%;">
+                    <div class="col-md-4 ">
+                
+                    </div>
+                    <div class="col-md-3">
+                        <button class="cancelBtn" (click)="stepper.previous()">
+                            Back
+                        </button>
+
+                        <button class="nextBtn" (click)="SubmitTemplate()">
+                            Submit
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                
+                    </div>
+                </div>
+                        <!-- /2nd step -->
+                    </mat-step>
+                        </mat-stepper>
+                    </div>
+                    </div>
+
+                <!-- /.card-body -->
+        </div>
+    </section>
+    <!-- /.row -->
+
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

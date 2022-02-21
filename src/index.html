@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Entre Worker</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://cdn.noonexch.com/assets/css/js/iFrameResizer.js"></script>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <app-root>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        iFrameResize({
+          log: false,
+          autoResize: true,
+          checkOrigin: false
+        }, '#stats');
+        $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+        });
+      });
+  
+    </script>
+  </app-root>
+</body>
+</html>

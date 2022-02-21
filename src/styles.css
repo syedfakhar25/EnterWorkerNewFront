@@ -1,0 +1,72 @@
+
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.input-special-class{
+    width: 82.4% !important;
+    margin-left: 7.5% !important;
+}
+
+.textarea-styles{
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: grey;
+    margin-right: 5%;
+    height: 30px;
+}
+
+.input-special-class{
+    width: 82.4% !important;
+    margin-left: 7.5% !important;
+}
+h1, h2, h3, h4, h5, h6, a, p, div, span{
+    font-family: 'Montserrat', sans-serif;
+   }
+.textarea-styles{
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: grey;
+    margin-right: 5%;
+    height: 30px;
+}
+.search-box{
+    padding:2%;
+    width: 130%;
+    display: inline-block;
+    border:none;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 20%);
+    border-radius:8px;
+    background-color: #fff;
+}
+
+.addBtn{
+    background: #C22B30;
+    border-radius:9px;
+    float:right;
+    padding: 7px 15px 7px 15px;
+    font-size:15px;
+    color:#fff;
+    border:none;
+    margin-top: 5px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background-color: rgb(247, 210, 210);
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #C22B30; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }
+  
